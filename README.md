@@ -1,16 +1,38 @@
-# React + Vite
+# ScrollDetector — Focus & Scroll Awareness App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ScrollDetector is a browser-based computer vision app that detects when a user is looking down at their phone and triggers a real-time intervention animation to help improve focus and reduce distraction.
 
-Currently, two official plugins are available:
+It runs entirely in the browser using webcam input and on-device machine learning — no backend and no external inference APIs required.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+ScrollDetector uses real-time facial landmark detection to estimate head pose.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Demo
 
-## Expanding the ESLint configuration
+When the webcam is enabled:
+- The app tracks your face in real time
+- Detects head position (looking down)
+- Starts a timer while distracted
+- Triggers a focus reminder popup after a set threshold
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+### Detection Pipeline
+
+Webcam stream  
+→ MediaPipe FaceLandmarker  
+→ 468 facial landmarks  
+→ Head pitch angle calculation  
+→ Detect “looking down” state  
+→ Start timer  
+→ Trigger alert after threshold
+
+---
+
+## Tech
+
+- React (Vite)
+- MediaPipe Tasks Vision (`@mediapipe/tasks-vision`)
+- WebRTC (webcam access via `getUserMedia`)
+- JavaScript (no backend)
