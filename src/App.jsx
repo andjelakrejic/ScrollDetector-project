@@ -98,11 +98,11 @@ export default function App() {
         fontSize: 14,
         lineHeight: 2,
       }}>
-        <div>📷 Camera: {isReady ? "✅ Ready" : "⏳ Loading..."}</div>
-        <div>😀 Face: {faceDetected ? "✅ Detected" : "❌ Not found"}</div>
-        <div>📐 Pitch: {pitchAngle}°</div>
-        <div>👇 Looking down: {lookingDown ? "✅ Yes" : "❌ No"}</div>
-        <div>⏱ Timer: {scrollTimer}s / {ALERT_THRESHOLD_SECONDS}s</div>
+        <div>Camera: {isReady ? "✅ Ready" : "⏳ Loading..."}</div>
+        <div>Face: {faceDetected ? "✅ Detected" : "❌ Not found"}</div>
+        <div>Pitch: {pitchAngle}°</div>
+        <div>Looking down: {lookingDown ? "✅ Yes" : "❌ No"}</div>
+        <div>Timer: {scrollTimer}s / {ALERT_THRESHOLD_SECONDS}s</div>
       </div>
 
       <AnimatePresence>
