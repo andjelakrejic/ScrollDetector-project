@@ -2,8 +2,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import * as cocoSsd from "@tensorflow-models/coco-ssd";
 import "@tensorflow/tfjs";
 
-// How often we check for a phone — every 500ms
-// (phone detection is heavier than face detection, so we run it less often)
+// check for a phone — every 500ms. Less often than face detection
 const DETECTION_INTERVAL_MS = 500;
 
 // Only count it as a phone if the model is at least 60% confident
@@ -16,8 +15,7 @@ export function usePhoneDetection(videoRef, isVideoReady) {
   const [confidence, setConfidence] = useState(0);
 
   // Load the COCO-SSD model once when the component mounts
-  // This downloads a pre-trained model that knows 80 object types
-  // including "cell phone" — we don't train anything ourselves
+  // a pre-trained model that knows 80 object types (cell-phone included)
   useEffect(() => {
     async function loadModel() {
       console.log("Loading COCO-SSD model...");
@@ -32,14 +30,13 @@ export function usePhoneDetection(videoRef, isVideoReady) {
     };
   }, []);
 
-  // This runs every 500ms — takes a snapshot of the video,
-  // runs it through COCO-SSD, and checks if "cell phone" is in the results
+  // runs every 500ms — takes a snapshot of the video,
   const detect = useCallback(async () => {
     if (!modelRef.current || !videoRef.current || !isVideoReady) return;
 
     const predictions = await modelRef.current.detect(videoRef.current);
 
-    // predictions is an array like:
+    // predictions is an array:
     // [{ class: "cell phone", score: 0.82, bbox: [x, y, w, h] }, ...]
     const phones = predictions.filter(
       (p) => p.class === "cell phone" && p.score >= PHONE_CONFIDENCE_THRESHOLD
