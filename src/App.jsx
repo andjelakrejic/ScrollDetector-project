@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useWebcam } from "./hooks/useWebcam";
 import { useFaceDetection } from "./hooks/useFaceDetection";
 
-const ALERT_THRESHOLD_SECONDS = 5; // lowered to 10 so you can test it quickly
+const ALERT_THRESHOLD_SECONDS = 5; 
 
 export default function App() {
   const { videoRef, isReady, error } = useWebcam();
